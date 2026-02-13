@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para ti tonta :3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css'>
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+  <div id="hearts-container"></div>
+
+  <div class="main-center-container">
+      <div class="cadeado-wrapper" id="heart-lock">
+        <div class="cadeado animated infinite pulse">
+            <div class="coracao"></div>
+            <div class="plus"></div>
+        </div>
+      </div>
+      <p class="instruction-text animated pulse infinite">Haz clic para abrir mi corazón</p>
+  </div>
+
+  <div id="safe-modal" class="modal-overlay">
+    <div class="love-safe">
+      <div class="safe-inner-wrapper">
+          <div class="safe-header">
+            <span>♥ Fecha Especial 14/02/2026 ♥</span>
+          </div>
+          <div class="safe-screen">
+            <span id="screen-text">DD / MM / AAAA</span>
+          </div>
+          <div class="safe-keypad">
+            <button class="key-btn" onclick="pressKey('1')">1</button>
+            <button class="key-btn" onclick="pressKey('2')">2</button>
+            <button class="key-btn" onclick="pressKey('3')">3</button>
+            <button class="key-btn" onclick="pressKey('4')">4</button>
+            <button class="key-btn" onclick="pressKey('5')">5</button>
+            <button class="key-btn" onclick="pressKey('6')">6</button>
+            <button class="key-btn" onclick="pressKey('7')">7</button>
+            <button class="key-btn" onclick="pressKey('8')">8</button>
+            <button class="key-btn" onclick="pressKey('9')">9</button>
+            <button class="key-btn btn-clear" onclick="pressKey('C')">Borrar</button>
+            <button class="key-btn" onclick="pressKey('0')">0</button>
+            <button class="key-btn btn-enter" onclick="checkPassword()">❤</button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="gift-menu-container" style="display: none;">
+      <h1 class="menu-title">Happy Valentine's Day!</h1>
+      <p class="menu-subtitle">Elige tu sorpresa:</p>
+      
+      <div class="menu-buttons">
+          <button id="btn-photos" class="gift-card">
+              <div class="card-image">
+                  <img src="foto.png" alt="Galería de Fotos">
+              </div>
+              <span class="card-label">Nuestros Momentos</span>
+          </button>
+          
+          <button id="btn-music" class="gift-card">
+              <div class="card-image">
+                  <img src="lovesong.png" alt="Nuestra Canción">
+              </div>
+              <span class="card-label">Nuestra Canción</span>
+          </button>
+          
+          <button id="btn-letter" class="gift-card">
+              <div class="card-image">
+                  <img src="carta1.png" alt="Carta de Amor">
+              </div>
+              <span class="card-label">Carta para Ti</span>
+          </button>
+      </div>
+  </div>
+
+  <div id="letter-container" class="letter-overlay" style="display: none;">
+    <div class="letter-wrapper">
+        <div class="envelope" id="main-envelope">
+            <div class="envelope-flap"></div>
+            <div class="envelope-body"></div>
+            
+            <div class="paper-sheet">
+                <div class="paper-content">
+                    <h3 style="font-family: 'Kaushan Script'; color: #ff4351;">Para mi personita especial...</h3>
+                    <p>Aquí va todo lo que quieras decirle. Puedes escribir una carta larga, el espacio se ajustará para que se vea súper bien decorado.</p>
+                    <p>¡Eres lo mejor que me ha pasado! ❤️</p>
+                    <div class="paper-decoration">🌸 ✨ 🌸</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="letter-decor top-left-d">🌸</div>
+        <div class="letter-decor top-right-d">❤️</div>
+        <div class="letter-decor bottom-left-d">❤️</div>
+        <div class="letter-decor bottom-right-d">🌸</div>
+
+        <button id="back-to-menu" class="back-btn" style="margin-top: 40px;">Volver al Menú</button>
+    </div>
+</div>
+
+        <div style="margin-top: 20px; text-align: center;">
+            <button id="realistic-book-btn" class="btn btn-default" style="margin-bottom: 10px;">Abrir el libro</button>
+            <br>
+            <button id="back-to-menu" style="background: transparent; border: none; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.5); text-decoration: underline;">Volver al menú</button>
+        </div>
+    </div>
+  </div>
+
+  <audio id="love-song" src="musica.mp3" loop></audio>
+
+  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+  <script src="./script.js"></script>
+  <div id="music-container" class="music-screen" style="display: none;">
+      
+      <div class="music-content-box">
+          <div class="flower-decoration top-left-f"><div class="flower-center"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="petal p7"></div><div class="petal p8"></div></div>
+          <div class="flower-decoration top-right-f"><div class="flower-center"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="petal p7"></div><div class="petal p8"></div></div>
+          <div class="flower-decoration bottom-left-f"><div class="flower-center"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="petal p7"></div><div class="petal p8"></div></div>
+          <div class="flower-decoration bottom-right-f"><div class="flower-center"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="petal p7"></div><div class="petal p8"></div></div>
+
+          <div class="flower-decoration top-mid-1-f"><div class="flower-center"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="petal p7"></div><div class="petal p8"></div></div>
+          <div class="flower-decoration top-mid-2-f"><div class="flower-center"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="petal p7"></div><div class="petal p8"></div></div>
+          
+          <div class="flower-decoration bottom-mid-1-f"><div class="flower-center"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="petal p7"></div><div class="petal p8"></div></div>
+          <div class="flower-decoration bottom-mid-2-f"><div class="flower-center"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="petal p7"></div><div class="petal p8"></div></div>
+
+          <div class="flower-decoration left-mid-f"><div class="flower-center"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="petal p7"></div><div class="petal p8"></div></div>
+          <div class="flower-decoration right-mid-f"><div class="flower-center"></div><div class="petal p1"></div><div class="petal p2"></div><div class="petal p3"></div><div class="petal p4"></div><div class="petal p5"></div><div class="petal p6"></div><div class="petal p7"></div><div class="petal p8"></div></div>
+
+          <h2 style="font-family:'Kaushan Script'; color:#ff4351; margin-bottom:10px; margin-top:0;">Nuestra Canción 🎵</h2>
+          <p style="color:#ff8fa3; margin-bottom: 15px;">Dale play al video y lee la letra...</p>
+          
+          <div class="video-frame">
+              <iframe src="https://drive.google.com/file/d/1grTJLfnO8PQ1lwMgzr5OMJ-hrK3Kzf18/preview" width="640" height="480"></iframe>
+          </div>
+
+          <button id="back-from-music" class="back-btn">Volver al Menú</button>
+      </div>
+  </div>
+</body>
+</html>
