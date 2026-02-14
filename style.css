@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
 
 * {
-    cursor: url(cursor.png), auto !important;
+    cursor: url(cursor.png), auto !important; /* Asegúrate de que el nombre del archivo coincida */
     -webkit-tap-highlight-color: transparent !important;
     box-sizing: border-box;
 }
@@ -84,7 +84,8 @@ html, body {
 }
 
 /* --- 4. PANTALLA 2: CAJA FUERTE --- */
-.modal-overlay, .letter-overlay, .photos-screen {
+/* AÑADIDO: .photos-screen y .music-screen al grupo de overlays */
+.modal-overlay, .letter-overlay, .photos-screen, .music-screen {
   display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   background: rgba(0,0,0,0); z-index: 100; 
   justify-content: center; align-items: center; flex-direction: column;
@@ -146,29 +147,65 @@ html, body {
 }
 .gift-card:hover .card-label { background: #ff4351; color: white; }
 
-/* --- 6. PANTALLA MÚSICA Y FLORES --- */
-.music-screen {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 100;
-}
+/* --- 6. ESTILOS COMUNES Y FLORES --- */
+
+/* Contenedores para Música y Fotos */
+/* --- SECCIÓN MÚSICA (Estilo Scrapbook Unificado) --- */
 .music-content-box {
-    background: rgba(255, 255, 255, 0.98); padding: 40px; border-radius: 30px;
-    box-shadow: 0 20px 50px rgba(255, 67, 81, 0.25); border: 4px solid #fff0f3;
-    text-align: center; width: 95%; max-width: 900px; position: relative; z-index: 10;
+    /* 1. Fondo de Papel Punteado */
+    background-color: #fff9fa !important;
+    background-image: radial-gradient(#ffcdd2 2px, transparent 2px);
+    background-size: 20px 20px;
+    
+    /* 2. Borde "Cosido" */
+    border: 3px dashed #ffb7c5;
+    border-radius: 30px;
+    
+    /* 3. Marco Blanco Exterior (Sombra Doble) */
+    box-shadow: 
+        0 0 0 10px #fff, 
+        0 20px 50px rgba(255, 67, 81, 0.25);
+    
+    padding: 40px; 
+    text-align: center;
+    width: 95%; max-width: 900px;
+    position: relative; z-index: 10;
     overflow: visible !important;
 }
 
-/* VIDEO */
+/* Título de la Canción (Ajustado para combinar con "Nuestros Momentos") */
+.music-content-box h2 {
+    font-family: 'Indie Flower', cursive; /* Misma fuente manuscrita */
+    font-size: 2.5rem;
+    color: #ff8fa3;
+    font-weight: bold;
+    text-shadow: 2px 2px 0px #fff;
+    margin-bottom: 10px; margin-top: 0;
+}
+
+.music-content-box p {
+    font-family: 'Quicksand', sans-serif;
+    color: #666;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Video */
 .video-frame {
-    width: 100%; height: 500px; border-radius: 20px; overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15); background: #000; margin-bottom: 20px;
+    width: 100%; height: 500px; border-radius: 20px;
+    overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    background: #000; margin-bottom: 20px;
 }
 .video-frame iframe { width: 100%; height: 100%; }
 
-/* --- FLORES "GOTA" (INTENTO MEJORADO) --- */
+/* FLORES DECORATIVAS (TUS FLORES ORIGINALES) */
 .flower-decoration {
     position: absolute; width: 100px; height: 100px; z-index: 20;
     animation: slowSpin 12s infinite linear; pointer-events: none;
+}
+/* Esto ajusta el tamaño específicamente para la sección de la carta */
+.letter-wrapper .flower-decoration {
+    transform: scale(0.8); /* Las hace un 20% más pequeñas */
 }
 .top-left-f { top: -45px; left: -45px; } .top-right-f { top: -45px; right: -45px; }
 .bottom-left-f { bottom: -45px; left: -45px; } .bottom-right-f { bottom: -45px; right: -45px; }
@@ -178,139 +215,25 @@ html, body {
 .right-mid-f { top: 50%; right: -55px; transform: translateY(-50%); }
 
 .flower-center {
-    position: absolute; top: 50%; left: 50%; width: 34px; height: 34px; /* Un poco más grande */
-    background: radial-gradient(circle at 30% 30%, #ffd54f, #ffb300);
-    border-radius: 50%; transform: translate(-50%, -50%);
+    position: absolute; top: 50%; left: 50%; width: 30px; height: 30px;
+    background: #ffca28; border-radius: 50%; transform: translate(-50%, -50%);
     z-index: 5; box-shadow: inset 0 0 5px rgba(0,0,0,0.2); border: 2px solid #ffb300;
 }
-
-/* PÉTALOS CON FORMA DE GOTA/ALMENDRA */
 .petal {
-    position: absolute; 
-    top: 50%; left: 50%; 
-    width: 20px; /* Ancho suficiente para no parecer un palo */
-    height: 48px; /* Largo */
-    
-    /* Degradado para dar volumen y que se vea lindo */
-    background: linear-gradient(to top, #ff8fa3, #ffd1dc);
-    
-    /* Esta es la clave: Borde redondeado arriba (50%), y menos redondeado abajo (10%) */
-    /* Esto crea la forma de gota invertida que nace del centro */
-    border-radius: 50% 50% 10% 10%;
-    
-    transform-origin: bottom center; 
-    margin-left: -10px; /* Exactamente la mitad del width */
-    margin-top: -48px; /* Debe ser igual al height para que la base toque el centro */
-    
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-    z-index: 1;
+    position: absolute; top: 50%; left: 50%; width: 14px; height: 45px;
+    background: #ff8fa3; 
+    border-radius: 50% 50% 0 0 / 80% 80% 0 0; /* TU FORMA ORIGINAL */
+    transform-origin: bottom center; margin-left: -7px; margin-top: -45px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 1;
 }
+.p1 { transform: rotate(0deg); } .p2 { transform: rotate(45deg); } 
+.p3 { transform: rotate(90deg); } .p4 { transform: rotate(135deg); }
+.p5 { transform: rotate(180deg); } .p6 { transform: rotate(225deg); } 
+.p7 { transform: rotate(270deg); } .p8 { transform: rotate(315deg); }
 
-.p1 { transform: rotate(0deg); } .p2 { transform: rotate(45deg); } .p3 { transform: rotate(90deg); } .p4 { transform: rotate(135deg); }
-.p5 { transform: rotate(180deg); } .p6 { transform: rotate(225deg); } .p7 { transform: rotate(270deg); } .p8 { transform: rotate(315deg); }
 @keyframes slowSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-
-/* --- 7. GALERÍA DE FOTOS (SOLUCIÓN SCROLL ÚNICO) --- */
-.photos-screen {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 100;
-}
-
-/* CAJA PRINCIPAL: SIN SCROLL, SOLO CONTENEDOR */
-.photos-content-box {
-    background: rgba(255, 255, 255, 0.96);
-    padding: 30px; border-radius: 25px;
-    width: 95%; max-width: 1000px; 
-    height: 85vh; /* Altura fija */
-    
-    /* Esto permite que las flores se vean afuera */
-    overflow: visible; 
-    
-    box-shadow: 0 15px 50px rgba(255, 67, 81, 0.15);
-    border: 4px solid #ffeff2;
-    text-align: center; 
-    
-    /* Flexbox para que el grid ocupe el espacio restante */
-    display: flex; flex-direction: column; align-items: center;
-    position: relative;
-}
-
-.photos-text {
-    font-family: 'Quicksand', sans-serif; color: #666; font-size: 1.2rem;
-    max-width: 750px; margin-bottom: 20px; line-height: 1.4;
-    flex-shrink: 0; /* El texto no se encoge, siempre se ve */
-}
-
-/* GRID DE FOTOS: EL ÚNICO CON SCROLL */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 30px; 
-    width: 100%; 
-    padding: 20px; 
-    
-    /* Aquí está el truco para un solo scroll */
-    flex-grow: 1; 
-    overflow-y: auto; 
-    min-height: 0; 
-    
-    margin-bottom: 10px;
-    
-    /* Scrollbar bonito y sutil */
-    scrollbar-width: thin;
-    scrollbar-color: #ff8fa3 #fff0f3;
-}
-.gallery-grid::-webkit-scrollbar { width: 8px; }
-.gallery-grid::-webkit-scrollbar-track { background: #fff0f3; border-radius: 10px; }
-.gallery-grid::-webkit-scrollbar-thumb { background-color: #ff8fa3; border-radius: 10px; }
-
-/* MARQUITO POLAROID DECORADO */
-.photo-card {
-    background-color: #fffcf4;
-    padding: 12px 12px 45px 12px;
-    box-shadow: 3px 5px 15px rgba(0,0,0,0.15);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-    border-radius: 3px;
-}
-.photo-card::after {
-    content: ''; position: absolute;
-    top: 6px; left: 6px; right: 6px; bottom: 6px;
-    border: 2px dashed #ffb7c5; 
-    border-radius: 2px; pointer-events: none;
-}
-/* Cinta Adhesiva (Washi Tape) */
-.photo-card::before {
-    content: ''; position: absolute;
-    top: -10px; left: 50%; transform: translateX(-50%);
-    width: 80px; height: 25px;
-    background-color: rgba(255, 160, 180, 0.6);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    z-index: 10;
-    border-radius: 2px;
-}
-.photo-card:hover {
-    transform: scale(1.15) rotate(0deg) !important; z-index: 50;
-    box-shadow: 5px 10px 30px rgba(0,0,0,0.25);
-    background-color: white;
-}
-.photo-card img {
-    width: 100%; height: 180px; object-fit: cover;
-    border: 1px solid #eee; position: relative; z-index: 2;
-}
-
-/* Rotaciones aleatorias */
-.p1 { transform: rotate(-3deg); } .p2 { transform: rotate(2deg); margin-top: 10px; }
-.p3 { transform: rotate(4deg); } .p4 { transform: rotate(-5deg); margin-top: -5px; }
-.p5 { transform: rotate(3deg); } .p6 { transform: rotate(-2deg); margin-top: 15px; }
-.p7 { transform: rotate(5deg); } .p8 { transform: rotate(-4deg); }
-.p9 { transform: rotate(2deg); margin-top: -10px; } .p10 { transform: rotate(-3deg); }
-.p11 { transform: rotate(4deg); } .p12 { transform: rotate(-2deg); margin-top: 5px; }
-
-
-/* --- 8. CARTA DE AMOR GIGANTE --- */
+/* --- 7. CARTA DE AMOR GIGANTE --- */
 .letter-wrapper {
     position: relative; display: flex; flex-direction: column; 
     align-items: center; justify-content: center; margin-top: 50px;
@@ -342,30 +265,94 @@ html, body {
     position: absolute; bottom: 0; left: 0; width: 100%; height: 175px;
     background: #ffc2c9; z-index: 25; border-radius: 0 0 15px 15px; pointer-events: none;
 }
+/* --- HOJA DE PAPEL (Estilo Libreta) --- */
 .paper-sheet {
     position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-    width: 90%; height: 300px; background: #fff; padding: 40px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
-    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index: 20; overflow-y: auto; border-radius: 10px;
-    background-image: radial-gradient(#fff0f3 15%, transparent 16%), radial-gradient(#fff0f3 15%, transparent 16%);
+    width: 90%; height: 300px; 
+    
+    /* FONDO DE PUNTOS (Igual que las otras secciones) */
+    background-color: #fff9fa;
+    background-image: radial-gradient(#ffcdd2 2px, transparent 2px);
     background-size: 20px 20px;
-    opacity: 0; 
+    
+    padding: 40px;
+    z-index: 20; opacity: 0; 
+    border-radius: 10px;
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    
+    /* Ocultamos el borde punteado decorativo antiguo si lo tenías */
+    /* .paper-border { display: none; } */
 }
+.paper-sheet .flower-decoration {
+    scale: 0.7;
+    z-index: 100;
+}
+
+/* Ubicaciones exactas para el marco de la HOJA */
+.paper-sheet .top-left-f { top: -30px; left: -30px; }
+.paper-sheet .top-right-f { top: -30px; right: -30px; }
+.paper-sheet .bottom-left-f { bottom: -30px; left: -30px; }
+.paper-sheet .bottom-right-f { bottom: -30px; right: -30px; }
+
+/* Flores en los medios para completar el marco de forma ordenada */
+.paper-sheet .left-mid-f { top: 50%; left: -45px; transform: translateY(-50%); }
+.paper-sheet .right-mid-f { top: 50%; right: -45px; transform: translateY(-50%); }
+.paper-sheet .top-mid-1-f { top: -45px; left: 50%; transform: translateX(-50%); }
+.paper-sheet .bottom-mid-1-f { bottom: -45px; left: 50%; transform: translateX(-50%); }
+
 .paper-sheet.centered-mode {
     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) !important;
     width: 90vw; max-width: 800px; height: 85vh; 
-    z-index: 2000; box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-    opacity: 1; border: 4px solid #ffc2c9;
+    z-index: 2000;
+    opacity: 1;
+    
+    /* APLICAMOS EL BORDE COSIDO AQUÍ */
+    border: 3px dashed #ffb7c5;
+    border-radius: 20px; /* Un poco menos redondeado que la caja grande queda mejor en papel */
+    
+    /* MARCO BLANCO EXTERIOR */
+    box-shadow: 
+        0 0 0 10px #fff, 
+        0 30px 80px rgba(0,0,0,0.4);
+        }
+.paper-content h3 {
+    font-family: 'Kaushan Script', cursive; 
+    color: #ff4351; 
+    font-size: 2.5rem; 
+    text-shadow: 2px 2px 0px #fff; /* Sombra blanca para leer mejor */
+    margin-top: 10px;
 }
+
+.paper-content p {
+    color: #000000 !important;
+    font-weight: bold !important;
+    font-size: 1.7rem; /* Aumentado un poco más */
+    text-align: justify;
+    line-height: 1.6;
+    text-shadow: 1px 1px 0px #fff;
+    margin-bottom: 20px;
+}
+
 .paper-border {
-    position: absolute; top: 15px; left: 15px; right: 15px; bottom: 15px;
-    border: 3px dashed #ff8fa3; border-radius: 10px; pointer-events: none;
+    display: none !important; 
 }
 .corner-decoration { position: absolute; font-size: 24px; z-index: 5; opacity: 0.7; }
 .top-left { top: 25px; left: 25px; } .top-right { top: 25px; right: 25px; }
 .bottom-left { bottom: 25px; left: 25px; } .bottom-right { bottom: 25px; right: 25px; }
-.paper-content { font-family: 'Indie Flower', cursive; font-size: 1.6rem; color: #444; text-align: center; margin-top: 10px; line-height: 1.6; }
+.paper-content {
+    font-family: 'Indie Flower', cursive;
+    color: #555;
+    text-align: justify; /* Alineación justificada para orden */
+    padding: 0 20px;
+    line-height: 1.6;
+}
+.paper-flower {
+    display: inline-block;
+    font-size: 18px;
+    margin: 0 5px;
+    animation: pulse 2s infinite;
+}
+
 .envelope.open .envelope-flap { transform: rotateX(180deg); z-index: 5; }
 .envelope.open .wax-seal { opacity: 0; }
 .close-paper-btn {
@@ -378,10 +365,205 @@ html, body {
 }
 .close-paper-btn:hover { background: #d32f2f; transform: scale(1.1); }
 
-/* Botón Volver Genérico */
+/* --- 8. GALERÍA DE FOTOS (DECORACIÓN VINTAGE MEJORADA) --- */
+
+/* Contenedor principal de la sección */
+.photos-content-box {
+    height: 85vh; 
+    display: flex; flex-direction: column; align-items: center;
+    
+    /* Fondo de puntitos (se mantiene igual) */
+    background-color: #fff9fa !important;
+    background-image: radial-gradient(#ffcdd2 2px, transparent 2px);
+    background-size: 20px 20px;
+    
+    padding: 30px; 
+    border-radius: 30px;
+    
+    /* AQUÍ ESTÁ EL TRUCO DEL BORDE: */
+    /* 1. Borde discontinuo rosado (parece hilo cosido) */
+    border: 3px dashed #ffb7c5; 
+    
+    /* 2. Sombra doble: 
+       - La primera (0 0 0 10px #fff) crea un marco blanco sólido alrededor del borde punteado.
+       - La segunda es la sombra gris normal para dar profundidad. */
+    box-shadow: 
+        0 0 0 10px #fff, 
+        0 20px 50px rgba(255, 67, 81, 0.25);
+    
+    position: relative; z-index: 10;
+    overflow: visible !important;
+}
+
+.photos-text {
+    font-family: 'Indie Flower', cursive; 
+    
+    /* Color rosado igual al subtítulo de la música */
+    color: #ff8fa3; 
+    
+    /* Más grande y en negrita para que se lea bien */
+    font-size: 2.2rem; /* Aumentado (antes era pequeño) */
+    font-weight: bold;
+    letter-spacing: 1px; /* Un poco de espacio entre letras queda elegante */
+    
+    text-shadow: 2px 2px 0px #fff; /* Sombra blanca fuerte para que resalte sobre los puntitos */
+    
+    max-width: 800px; 
+    margin-bottom: 25px; 
+    line-height: 1.3;
+    flex-shrink: 0;
+}
+
+/* Rejilla con Scroll */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Un poco más anchas */
+    gap: 40px; /* Más espacio entre fotos para que respiren */
+    width: 100%; padding: 30px 20px;
+    flex-grow: 1; overflow-y: auto; overflow-x: hidden;
+    scrollbar-width: thin; scrollbar-color: #ff8fa3 #fff0f3;
+}
+.gallery-grid::-webkit-scrollbar { width: 8px; }
+.gallery-grid::-webkit-scrollbar-track { background: #fff0f3; border-radius: 10px; }
+.gallery-grid::-webkit-scrollbar-thumb { background-color: #ff8fa3; border-radius: 10px; }
+
+/* --- TARJETA ESTILO POLAROID VINTAGE --- */
+.photo-card {
+    background-color: #fffdf7; /* Un blanco roto más cálido, tipo papel viejo */
+    padding: 15px 15px 50px 15px; /* Más espacio abajo para el efecto Polaroid */
+    
+    /* Sombra suave y cálida */
+    box-shadow: 5px 5px 15px rgba(180, 130, 130, 0.2);
+    
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efecto rebote al pasar el mouse */
+    cursor: pointer; position: relative; border-radius: 4px;
+    border: 1px solid #ffece6; /* Un borde exterior sutil */
+}
+
+/* --- EL MARCO PUNTEADO INTERNO (TU IDEA) --- */
+.photo-card::after {
+    content: '';
+    position: absolute;
+    top: 6px; left: 6px; right: 6px; bottom: 6px; /* Margen interno */
+    
+    /* Borde discontinuo (dashed) de color rosado */
+    border: 2px dashed #ffb7c5; 
+    border-radius: 4px;
+    pointer-events: none; /* Para que no moleste al hacer click */
+    opacity: 0.7; /* Un poco transparente para que no sea muy agresivo */
+}
+
+/* --- CINTA "WASHI TAPE" (Mejorada) --- */
+.photo-card::before {
+    content: ''; position: absolute;
+    top: -12px; left: 50%; transform: translateX(-50%) rotate(-2deg);
+    width: 90px; height: 28px;
+    
+    /* Color rosado semitransparente para parecer cinta adhesiva */
+    background-color: rgba(255, 160, 180, 0.55);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 10; border-radius: 2px;
+    backdrop-filter: blur(2px); /* Un pequeño efecto de desenfoque si el navegador lo soporta */
+}
+
+/* Efecto Hover (Al pasar el mouse) */
+.photo-card:hover {
+    transform: scale(1.1) rotate(0deg) !important; /* Se endereza y crece */
+    z-index: 50;
+    box-shadow: 10px 20px 30px rgba(0,0,0,0.2); /* Sombra más grande, parece que flota */
+    background-color: #fff;
+}
+.photo-card:hover::after {
+    border-color: #ff4351; /* El borde punteado se pone rojo al pasar el mouse */
+    opacity: 1;
+}
+
+/* La imagen en sí */
+.photo-card img {
+    width: 100%; height: 200px; /* Un poco más altas */
+    object-fit: cover;
+    border: 3px solid #fff; /* Pequeño marco blanco a la foto */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative; z-index: 2;
+    filter: sepia(10%); /* Un toque muy sutil de sepia para lo vintage (opcional) */
+    transition: filter 0.3s;
+}
+.photo-card:hover img {
+    filter: sepia(0%); /* Vuelve a color normal al pasar el mouse */
+}
+
+/* Rotaciones desordenadas (Se mantienen igual) */
+.photo-card.p1 { transform: rotate(-3deg); }
+.photo-card.p2 { transform: rotate(2deg); margin-top: 15px; }
+.photo-card.p3 { transform: rotate(4deg); }
+.photo-card.p4 { transform: rotate(-5deg); margin-top: -10px; }
+.photo-card.p5 { transform: rotate(3deg); }
+.photo-card.p6 { transform: rotate(-2deg); margin-top: 20px; }
+.photo-card.p7 { transform: rotate(5deg); }
+.photo-card.p8 { transform: rotate(-4deg); }
+.photo-card.p9 { transform: rotate(2deg); margin-top: -15px; }
+.photo-card.p10 { transform: rotate(-3deg); }
+.photo-card.p11 { transform: rotate(4deg); }
+.photo-card.p12 { transform: rotate(-2deg); margin-top: 10px; }
+/* Botón Volver */
 .back-btn {
     background: white; border: 2px solid #ff4351; color: #ff4351;
     padding: 8px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; margin-top: 20px;
-    flex-shrink: 0; /* Asegura que el botón no se aplaste */
+    flex-shrink: 0; position: relative; z-index: 30;
 }
 .back-btn:hover { background: #ff4351; color: white; }
+
+/* --- STICKERS DE CORAZÓN PARA LA CARTA --- */
+
+/* Contenedor del sticker (el borde rosa) */
+.heart-sticker {
+    width: 120px;
+    height: 120px;
+    background-color: #ffb7c5;
+    padding: 5px;
+    clip-path: url(#heart-clip);
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+    transition: transform 0.3s ease;
+}
+.sticker-featured {
+    width: 180px;  /* Tamaño mayor solicitado */
+    height: 180px;
+    float: right;
+    margin-top: -50px; /* La sube un poco para que no choque con el final */
+    margin-right: 0;
+}
+/* La imagen dentro del sticker */
+.heart-sticker img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* La imagen también debe heredar la forma de corazón */
+    clip-path: inherit; 
+}
+
+/* Efecto al pasar el mouse */
+.heart-sticker:hover {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 8px 15px rgba(255, 67, 81, 0.2));
+}
+
+/* Animación de balanceo suave para que se vea tierno */
+.sticker-float {
+    animation: floatingSticker 4s ease-in-out infinite alternate;
+}
+
+@keyframes floatingSticker {
+    from { transform: translateY(0) rotate(-2deg); }
+    to { transform: translateY(-8px) rotate(2deg); }
+}
+
+/* Posiciones para que no sea un bloque aburrido */
+.img-left { float: left; margin: 10px 20px 15px 0; }
+.img-right { float: right; margin: 10px 0 15px 20px; }
+
+/* Limpiar el float para que el texto no se rompa */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
