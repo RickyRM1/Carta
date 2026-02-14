@@ -283,22 +283,6 @@ html, body {
     /* Ocultamos el borde punteado decorativo antiguo si lo tenías */
     /* .paper-border { display: none; } */
 }
-.paper-sheet .flower-decoration {
-    scale: 0.7;
-    z-index: 100;
-}
-
-/* Ubicaciones exactas para el marco de la HOJA */
-.paper-sheet .top-left-f { top: -30px; left: -30px; }
-.paper-sheet .top-right-f { top: -30px; right: -30px; }
-.paper-sheet .bottom-left-f { bottom: -30px; left: -30px; }
-.paper-sheet .bottom-right-f { bottom: -30px; right: -30px; }
-
-/* Flores en los medios para completar el marco de forma ordenada */
-.paper-sheet .left-mid-f { top: 50%; left: -45px; transform: translateY(-50%); }
-.paper-sheet .right-mid-f { top: 50%; right: -45px; transform: translateY(-50%); }
-.paper-sheet .top-mid-1-f { top: -45px; left: 50%; transform: translateX(-50%); }
-.paper-sheet .bottom-mid-1-f { bottom: -45px; left: 50%; transform: translateX(-50%); }
 
 .paper-sheet.centered-mode {
     position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) !important;
@@ -324,13 +308,12 @@ html, body {
 }
 
 .paper-content p {
-    color: #000000 !important;
-    font-weight: bold !important;
-    font-size: 1.7rem; /* Aumentado un poco más */
-    text-align: justify;
+    margin-bottom: 15px;
+    font-size: 1.6rem; /* Un poco más grande */
+    font-weight: bold; /* Letras en negrita */
+    color: #000000;    /* Color negro puro para que se note */
+    text-shadow: 1px 1px 0px #fff; 
     line-height: 1.6;
-    text-shadow: 1px 1px 0px #fff;
-    margin-bottom: 20px;
 }
 
 .paper-border {
@@ -517,13 +500,16 @@ html, body {
 
 /* Contenedor del sticker (el borde rosa) */
 .heart-sticker {
-    width: 120px;
+    position: relative;
+    width: 120px; /* Reducido de 160px a 120px */
     height: 120px;
-    background-color: #ffb7c5;
-    padding: 5px;
-    clip-path: url(#heart-clip);
+    display: inline-block;
+    background-color: #ffb7c5; 
+    padding: 4px; 
+    clip-path: url(#heart-clip); 
     filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 5;
 }
 .sticker-featured {
     width: 180px;  /* Tamaño mayor solicitado */
@@ -567,3 +553,12 @@ html, body {
     clear: both;
     display: table;
 }
+
+.sticker-large {
+    width: 200px; /* El tamaño que pediste */
+    height: 200px;
+    float: right; /* Esto la empuja a la derecha */
+    margin: 10px 0 15px 20px; /* Margen para que el texto no toque la imagen */
+    display: block; /* Asegura que respete los márgenes */
+}
+
